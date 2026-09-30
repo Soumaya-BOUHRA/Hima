@@ -1,26 +1,44 @@
+import { motion } from 'framer-motion';
 import Icon from './Icon.jsx';
 import {
   STATUS_LABELS,
   PRIORITY_LABELS,
   formatDate,
   isOverdue,
+  projectName,
 } from '../utils/task.js';
 
-export default function TaskCard({ task, onView, onEdit, onDelete }) {
+export default function TaskCard({ task, onView, onEdit, onDelete, onToggle }) {
   const overdue = isOverdue(task);
   const dueDate = formatDate(task.dueDate);
-  const createdAt = formatDate(task.createdAt);
+  const done = task.status === 'completed';
+  const project = projectName(task);
+  const hasProject = project !== 'Sans projet';
 
   return (
-    <article className="task-card">
+    <motion.article
+      className="task-card"
+      data-priority={task.priority}
+      layout
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.97 }}
+      transition={{ duration: 0.28, ease: 'easeOut' }}
+    >
       <div className="task-card-top">
         <div className="task-badges">
-          <span className={`badge badge-status badge-${task.status}`}>
+          <span className={`badge badge-${task.status}`}>
             {STATUS_LABELS[task.status] ?? task.status}
           </span>
-          <span className={`badge badge-priority priority-${task.priority}`}>
+          <span className={`badge priority-${task.priority}`}>
             {PRIORITY_LABELS[task.priority] ?? task.priority}
           </span>
+          {hasProject ? (
+            <span className="badge project-tag">
+              <Icon name="folder" size={11} />
+              {project}
+            </span>
+          ) : null}
         </div>
         <button
           type="button"
@@ -32,7 +50,28 @@ export default function TaskCard({ task, onView, onEdit, onDelete }) {
         </button>
       </div>
 
-      <h3 className="task-card-title">{task.title}</h3>
+      <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+        <button
+          type="button"
+          className={`hima-check${done ? ' is-checked' : ''}`}
+          onClick={() => onToggle?.(task)}
+          aria-pressed={done}
+          aria-label={done ? `Rouvrir « ${task.title} »` : `Terminer « ${task.title} »`}
+          style={{ marginTop: 2 }}
+        >
+          <Icon name="check" size={14} />
+        </button>
+        <h3
+          className="task-card-title"
+          style={
+            done
+              ? { textDecoration: 'line-through', color: 'var(--text-subtle)' }
+              : undefined
+          }
+        >
+          {task.title}
+        </h3>
+      </div>
 
       {task.description ? (
         <p className="task-card-description">{task.description}</p>
@@ -52,12 +91,6 @@ export default function TaskCard({ task, onView, onEdit, onDelete }) {
             'Sans échéance'
           )}
         </span>
-        {createdAt ? (
-          <span className="meta-item">
-            <Icon name="clock" size={14} />
-            Créée le {createdAt}
-          </span>
-        ) : null}
       </div>
 
       <div className="task-card-actions">
@@ -78,6 +111,6 @@ export default function TaskCard({ task, onView, onEdit, onDelete }) {
           Supprimer
         </button>
       </div>
-    </article>
+    </motion.article>
   );
 }

@@ -13,6 +13,7 @@ export default function Login() {
   const [fieldErrors, setFieldErrors] = useState({});
   const [error, setError] = useState(null);
   const [submitting, setSubmitting] = useState(false);
+  const [forgotHint, setForgotHint] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -50,8 +51,8 @@ export default function Login() {
 
   return (
     <AuthLayout
-      title="Bon retour parmi nous"
-      subtitle="Connectez-vous pour accéder à vos tâches."
+      title="Bon retour 👋"
+      subtitle="Ravi de vous revoir. Continuons votre progression."
       footer={
         <p>
           Pas encore de compte ?{' '}
@@ -114,6 +115,24 @@ export default function Login() {
             </p>
           ) : null}
         </div>
+
+        <div className="auth-alt">
+          <span />
+          <button
+            type="button"
+            className="btn btn-ghost link-forgot"
+            onClick={() => setForgotHint((v) => !v)}
+            aria-expanded={forgotHint}
+          >
+            Mot de passe oublié ?
+          </button>
+        </div>
+        {forgotHint ? (
+          <p className="field-hint" role="note" style={{ marginBottom: 12 }}>
+            Écrivez-nous depuis votre adresse d’inscription et nous
+            réinitialiserons votre accès.
+          </p>
+        ) : null}
 
         <button type="submit" className="btn btn-primary btn-block" disabled={submitting}>
           {submitting ? 'Connexion…' : 'Se connecter'}

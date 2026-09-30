@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" fill="none">
+  <defs>
+    <linearGradient id="p3g" x1="24" y1="94" x2="94" y2="24" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7E80D8"/>
+      <stop offset="0.5" stop-color="#CD49AA"/>
+      <stop offset="1" stop-color="#67CECB"/>
+    </linearGradient>
+  </defs>
+  <path d="M24 94 A70 70 0 0 1 94 24" stroke="url(#p3g)" stroke-width="15" stroke-linecap="round"/>
+  <circle cx="24" cy="94" r="11" fill="#7E80D8"/>
+  <circle cx="94" cy="24" r="16" fill="#67CECB"/>
+</svg>

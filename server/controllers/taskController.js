@@ -20,6 +20,10 @@ const buildPayload = (body) => {
   if (body.status !== undefined) payload.status = body.status;
   if (body.priority !== undefined) payload.priority = body.priority;
   if (body.dueDate !== undefined) payload.dueDate = parseDueDate(body.dueDate);
+  if (body.project !== undefined) {
+    payload.project =
+      body.project === null ? '' : String(body.project).trim().slice(0, 60);
+  }
 
   return payload;
 };

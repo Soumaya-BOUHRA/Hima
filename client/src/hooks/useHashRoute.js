@@ -8,6 +8,36 @@ function readHashRoute() {
   return hash.startsWith('/') ? hash : `/${hash}`;
 }
 
+export const NAV_ITEMS = [
+  { to: '/dashboard', label: "Vue d'ensemble", icon: 'overview' },
+  { to: '/taches', label: 'Mes tâches', icon: 'tasks' },
+  { to: '/projets', label: 'Projets', icon: 'layers' },
+  { to: '/calendrier', label: 'Calendrier', icon: 'calendar' },
+  { to: '/priorites', label: 'Priorités', icon: 'flag' },
+  { to: '/statistiques', label: 'Statistiques', icon: 'chart' },
+];
+
+export const APP_ROUTES = [
+  '/',
+  '/dashboard',
+  '/taches',
+  '/projets',
+  '/calendrier',
+  '/priorites',
+  '/statistiques',
+];
+
+export function isAppRoute(route) {
+  return APP_ROUTES.includes(route);
+}
+
+export function routeTitle(route) {
+  const found = NAV_ITEMS.find((item) => item.to === route);
+  if (found) return found.label;
+  if (route === '/' || route === '/dashboard') return "Vue d'ensemble";
+  return '';
+}
+
 export function useRoute() {
   return useContext(RouteContext);
 }

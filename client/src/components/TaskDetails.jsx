@@ -9,6 +9,7 @@ import {
   PRIORITY_LABELS,
   formatDate,
   isOverdue,
+  projectName,
 } from '../utils/task.js';
 
 export default function TaskDetails({ taskId, onClose, onEdit, onDelete, onAuthError }) {
@@ -92,6 +93,10 @@ export default function TaskDetails({ taskId, onClose, onEdit, onDelete, onAuthE
           </p>
 
           <dl className="details-grid">
+            <div className="details-item">
+              <dt>Projet</dt>
+              <dd>{projectName(task)}</dd>
+            </div>
             <div className="details-item">
               <dt>Échéance</dt>
               <dd className={overdue ? 'is-overdue' : undefined}>

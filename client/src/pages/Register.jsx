@@ -68,8 +68,8 @@ export default function Register() {
 
   return (
     <AuthLayout
-      title="Créer votre compte"
-      subtitle="Commencez à organiser vos tâches en quelques secondes."
+      title="Créer un compte"
+      subtitle="Rejoignez HIMA et donnez de l’élan à vos journées."
       footer={
         <p>
           Déjà un compte ?{' '}

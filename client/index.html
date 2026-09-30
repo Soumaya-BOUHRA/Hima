@@ -3,12 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/fonts/fonts.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#7E80D8" />
     <meta
       name="description"
-      content="TaskFlow — organisez, priorisez et suivez vos tâches au quotidien."
+      content="HIMA — هِمّة : نظّم مهامك، رتّب أولوياتك، وخلي خدمتك تمشي بسلاسة. Gestion de tâches, priorités et échéances."
     />
-    <title>TaskFlow — Gestion de tâches</title>
+    <title>HIMA — هِمّة · Gestion de tâches</title>
+    <script>
+      try {
+        var t = localStorage.getItem('hima_theme');
+        if (t === 'light' || t === 'dark') {
+          document.documentElement.dataset.theme = t;
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>

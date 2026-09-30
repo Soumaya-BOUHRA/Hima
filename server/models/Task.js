@@ -38,6 +38,12 @@ const taskSchema = new mongoose.Schema(
       type: Date,
       default: null,
     },
+    project: {
+      type: String,
+      default: '',
+      trim: true,
+      maxlength: [60, 'Le nom du projet ne peut pas dépasser 60 caractères'],
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',

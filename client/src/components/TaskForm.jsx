@@ -3,6 +3,7 @@ import { STATUS_LABELS, PRIORITY_LABELS, toInputDate } from '../utils/task.js';
 
 const MAX_TITLE = 120;
 const MAX_DESCRIPTION = 2000;
+const MAX_PROJECT = 60;
 
 const buildValues = (task) => ({
   title: task?.title ?? '',
@@ -10,6 +11,7 @@ const buildValues = (task) => ({
   status: task?.status ?? 'pending',
   priority: task?.priority ?? 'medium',
   dueDate: toInputDate(task?.dueDate),
+  project: task?.project ?? '',
 });
 
 const validate = (values) => {
@@ -37,6 +39,7 @@ export default function TaskForm({
   submitting = false,
   error,
   submitLabel = 'Enregistrer',
+  projectSuggestions = [],
 }) {
   const [values, setValues] = useState(() => buildValues(task));
   const [fieldErrors, setFieldErrors] = useState({});
@@ -64,6 +67,7 @@ export default function TaskForm({
       status: values.status,
       priority: values.priority,
       dueDate: values.dueDate || null,
+      project: values.project.trim(),
     });
   };
 
@@ -130,6 +134,31 @@ export default function TaskForm({
             {values.description.length}/{MAX_DESCRIPTION}
           </span>
         </div>
+      </div>
+
+      <div className="field">
+        <label className="field-label" htmlFor="task-project">
+          Projet
+        </label>
+        <input
+          id="task-project"
+          name="project"
+          type="text"
+          className="input"
+          value={values.project}
+          onChange={handleChange}
+          placeholder="Ex. Marketing, Personnel…"
+          maxLength={MAX_PROJECT}
+          autoComplete="off"
+          list="hima-project-suggestions"
+        />
+        {projectSuggestions?.length ? (
+          <datalist id="hima-project-suggestions">
+            {projectSuggestions.map((name) => (
+              <option key={name} value={name} />
+            ))}
+          </datalist>
+        ) : null}
       </div>
 
       <div className="field-row">
