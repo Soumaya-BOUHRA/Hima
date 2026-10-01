@@ -36,7 +36,12 @@ app.get('/api/health', (req, res) => {
     data: { uptime: process.uptime() },
   });
 });
-
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'TaskFlow API is running 🚀',
+  });
+});
 // NOTE: no /api/projects route exists in this codebase — projects are
 // derived client-side from tasks (see client/src/utils/task.js groupByProject).
 // Existing routes preserved as-is:
