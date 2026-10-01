@@ -14,6 +14,7 @@ const connectDB = async () => {
   }
 
   if (!cached.promise) {
+    console.log('DEBUG MONGO_URI (JSON):', JSON.stringify(process.env.MONGO_URI?.slice(0, 15)));
     if (!process.env.MONGO_URI) {
       throw new Error('MONGO_URI manquant : définissez la variable d’environnement.');
     }
